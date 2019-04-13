@@ -9,11 +9,22 @@ namespace SimpleWorkflowEngine.WorkflowItems
             _s = s;
         }
 
-        public override string Name => "ConsoleOutput";
+        private string _Guid = null;
+
+        public string Guid {
+            get {
+                if(_Guid == null) {
+                    _Guid = System.Guid.NewGuid().ToString();
+                }
+                return _Guid;
+            }
+        }
+
+        public override string Name => "ConsoleOutput" + Guid;
 
         public override ItemInOutput Invoke(ItemInOutput input)
         {
-            Console.WriteLine(_s);
+            Console.WriteLine($"{Name} -> {_s}");
             return input;
         }
     }
